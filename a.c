@@ -79,10 +79,22 @@ int main(void)
                     exti(0);
                 }
                 inet_ntop(AF_INET,&clientaddr.sin_addr.s_addr,client_ip,16);
+                printf("listen server socket success,call Accept,client ip %s,client port%d\n",client_ip,ntohs(clientaddr.sin_port));
                 return_response(clientfd,client_ip);
-            }else{
+                if (maxfd < clientfd)
+                    maxfd = clientfd;
+                for (int i = 0; i < 1020; i++)
+                    if (client_array[i] == -1)
+                    {
+                        client_array[i] = clientfd;
+                        break;
+                    }
+                FD_SET(clientfd,&set);
 
+            }else{
+   
             }
+            --ready;
         }
     }
 }
