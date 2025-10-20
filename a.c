@@ -80,6 +80,14 @@ int main(void)
                 }
                 inet_ntop(AF_INET,&clientaddr.sin_addr.s_addr,client_ip,16);
                 return_response(clientfd,client_ip);
+                if(maxfd<clientfd)
+                    maxfd=clientfd;
+                for(int i=0;i<1020;i++)
+                    if(client_array[i]==-1){
+                        client_array[i]=clientfd;
+                        break;
+                    }
+            
             }else{
 
             }
